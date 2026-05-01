@@ -23,7 +23,10 @@ module.exports = grammar({
   conflicts: $ => [
     [$.return_statement, $.expression],
     [$.member_expression, $.method_call],
-    [$.named_argument, $.assignment]
+    [$.named_argument, $.assignment],
+    [$.typed_parameter, $.expression],
+    [$.typed_parameter, $.named_argument],
+    [$.function_definition, $.function_call]
   ],
 
   rules: {
@@ -33,6 +36,7 @@ module.exports = grammar({
       $.version_declaration,
       $.indicator_declaration,
       $.function_definition,
+      $.method_definition,
       $.variable_declaration,
       $.statement,
       $.comment
@@ -51,15 +55,34 @@ module.exports = grammar({
       optional($.parameter_list)
     ),
 
-    // Function definition
+    // Function definition: name(params) => expression or block
     function_definition: $ => seq(
+      field('name', $.identifier),
+      '(',
+      optional($.typed_parameter_list),
+      ')',
+      '=>',
+      choice($.expression, $.block)
+    ),
+
+    // Method definition (extends types)
+    method_definition: $ => seq(
       'method',
       field('name', $.identifier),
       '(',
-      optional($.parameter_list),
+      optional($.typed_parameter_list),
       ')',
       '=>',
-      $.block
+      choice($.expression, $.block)
+    ),
+
+    // Typed parameter list for function definitions
+    typed_parameter_list: $ => sepBy1(',', $.typed_parameter),
+
+    typed_parameter: $ => seq(
+      optional($.type_identifier),
+      field('name', $.identifier),
+      optional(seq('=', $.expression))
     ),
 
     // Variable declaration with required storage keyword or type
@@ -165,10 +188,29 @@ module.exports = grammar({
       $.function_call,
       $.member_expression,
       $.method_call,
+      $.subscript_expression,
+      $.ternary_expression,
       $.binary_expression,
       $.unary_expression,
       $.parenthesized_expression
     ),
+
+    // Subscript access: time[1], array[i]
+    subscript_expression: $ => prec(PREC.CALL, seq(
+      field('object', $.expression),
+      '[',
+      field('index', $.expression),
+      ']'
+    )),
+
+    // Ternary expression: condition ? trueExpr : falseExpr
+    ternary_expression: $ => prec.right(PREC.ASSIGN, seq(
+      field('condition', $.expression),
+      '?',
+      field('consequence', $.expression),
+      ':',
+      field('alternative', $.expression)
+    )),
 
     // Member access: color.purple, ta.sma
     member_expression: $ => prec(PREC.CALL, seq(

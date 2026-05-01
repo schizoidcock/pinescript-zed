@@ -23,9 +23,17 @@
 (indicator_declaration
   (string) @string)
 
-; Function definitions
+; Function definitions: name(params) =>
 (function_definition
   name: (identifier) @function.definition)
+
+; Method definitions: method name(params) =>
+(method_definition
+  name: (identifier) @function.definition)
+
+; Typed parameters in function definitions
+(typed_parameter
+  name: (identifier) @variable.parameter)
 
 ; Function calls
 (function_call
@@ -36,17 +44,23 @@
   object: (identifier) @module
   method: (identifier) @function.method)
 
-; Member access: color.purple, ta.sma
+; Member access: color.purple, timeframe.period
 (member_expression
   object: (identifier) @module
   property: (identifier) @property)
 
+; Subscript access: time[1], array[i]
+(subscript_expression
+  "[" @punctuation.bracket
+  "]" @punctuation.bracket)
+
+; Ternary expression
+(ternary_expression
+  "?" @operator
+  ":" @operator)
+
 ; Named arguments: overlay=true, group=GROUP_CONFIG
 (named_argument
-  name: (identifier) @variable.parameter)
-
-; Parameters in function definitions
-(parameter
   name: (identifier) @variable.parameter)
 
 ; Variable declarations
@@ -68,8 +82,10 @@
 ["if" "else" "for" "to" "by" "while" "switch" "return"] @keyword.control
 
 ; Declaration keywords
-["indicator" "strategy" "study" "library" "method"] @keyword.function
+["indicator" "strategy" "study" "library"] @keyword.function
 
+; Method keyword
+"method" @keyword.function
 
 ; Logical operators
 ["and" "or" "not"] @keyword.operator
@@ -92,10 +108,7 @@
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 
 ; Punctuation delimiter
-[","] @punctuation.delimiter
-
-; Dot accessor
-"." @punctuation.delimiter
+["," "."] @punctuation.delimiter
 
 ; Identifiers (fallback)
 (identifier) @variable
