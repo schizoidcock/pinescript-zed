@@ -71,45 +71,28 @@
   "method"
 ] @keyword.function
 
-; Logical operators
-[
-  "and"
-  "or"
-  "not"
-] @keyword.operator
+; Logical operators (these are keywords)
+["and" "or" "not"] @keyword.operator
 
-; Operators
-[
-  "="
-  ":="
-  "+"
-  "-"
-  "*"
-  "/"
-  "%"
-  "<"
-  ">"
-  "<="
-  ">="
-  "=="
-  "!="
-  "=>"
-] @operator
+; Binary expression operators - capture via field
+(binary_expression
+  operator: _ @operator)
+
+; Unary expression operators
+(unary_expression
+  operator: _ @operator)
+
+; Assignment operators
+(assignment) @operator
+
+; Arrow in function definitions
+"=>" @operator
 
 ; Punctuation brackets
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
+["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 
 ; Punctuation delimiter
-[
-  ","
-] @punctuation.delimiter
+[","] @punctuation.delimiter
 
 ; Fallback - identifiers
 (identifier) @variable

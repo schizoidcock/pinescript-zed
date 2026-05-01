@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mcx__mcx_find",
+      "mcp__mcx__mcx_file",
+      "mcp__mcx__mcx_execute",
+      "WebSearch",
+      "mcp__mcx__mcx_fetch",
+      "mcp__mcx__mcx_search",
+      "mcp__mcx__mcx_grep",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__mcx__mcx_adapter"
+    ]
+  }
+}

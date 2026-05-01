@@ -152,7 +152,7 @@ module.exports = grammar({
     binary_expression: $ => prec.left(seq(
       field('left', $.expression),
       field('operator', choice(
-        '+', '-', '*', '/',
+        '+', '-', '*', '/', '%',
         '>', '<', '>=', '<=',
         '==', '!=',
         'and', 'or'

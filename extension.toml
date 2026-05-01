@@ -6,11 +6,7 @@ version = "0.1.0"
 schema_version = 1
 repository = "https://github.com/schizoidcock/pinescript-zed"
 
-[languages.pinescript]
-path = "languages/pinescript"
-grammar = "pinescript"
-
 [grammars.pinescript]
 repository = "https://github.com/schizoidcock/pinescript-zed"
-rev = "eafa287b2d78dca2e136c9b65d1645d53fc4648c"
+rev = "52a7e921f60ef8a59bbc33e3048148a0f9bfd607"
 path = "tree-sitter-pinescript"
