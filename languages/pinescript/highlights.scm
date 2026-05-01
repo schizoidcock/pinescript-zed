@@ -4,17 +4,19 @@
 ; Strings
 (string) @string
 
-; Numbers
+; Numbers  
 (number) @number
 
-; Booleans and na
+; Booleans
 (boolean) @constant.builtin
+
+; NA value
 (na) @constant.builtin
 
 ; Version declaration
 (version_declaration) @keyword.directive
 
-; Indicator/Strategy declaration
+; Indicator/Strategy/Library declaration
 (indicator_declaration) @keyword.function
 
 ; Function definitions
@@ -23,7 +25,7 @@
 
 ; Function calls
 (function_call
-  name: (identifier) @function)
+  name: (identifier) @function.call)
 
 ; Parameters
 (parameter
@@ -41,24 +43,40 @@
 (for_statement
   name: (identifier) @variable)
 
-; Keywords
+; Declaration keywords
+[
+  "var"
+  "varip" 
+  "const"
+] @keyword.storage
+
+; Control flow keywords
 [
   "if"
   "else"
   "for"
   "to"
   "by"
-  "return"
-  "var"
-  "varip"
-  "const"
   "while"
   "switch"
+  "return"
+] @keyword.control
+
+; Declaration keywords
+[
+  "indicator"
+  "strategy"
+  "study"
   "library"
+  "method"
+] @keyword.function
+
+; Logical operators
+[
   "and"
   "or"
   "not"
-] @keyword
+] @keyword.operator
 
 ; Operators
 [
@@ -68,6 +86,7 @@
   "-"
   "*"
   "/"
+  "%"
   "<"
   ">"
   "<="
@@ -77,14 +96,17 @@
   "=>"
 ] @operator
 
-; Punctuation
+; Punctuation brackets
 [
   "("
   ")"
   "["
   "]"
+  "{"
+  "}"
 ] @punctuation.bracket
 
+; Punctuation delimiter
 [
   ","
 ] @punctuation.delimiter
