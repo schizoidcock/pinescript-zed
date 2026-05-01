@@ -189,6 +189,10 @@
           "named": true
         },
         {
+          "type": "na",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -470,6 +474,33 @@
         {
           "type": "return_statement",
           "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "switch_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
         }
       ]
     }
@@ -540,6 +571,25 @@
       "types": [
         {
           "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "while_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -663,8 +713,16 @@
     "named": false
   },
   {
+    "type": "library",
+    "named": false
+  },
+  {
     "type": "method",
     "named": false
+  },
+  {
+    "type": "na",
+    "named": true
   },
   {
     "type": "not",
@@ -695,6 +753,10 @@
     "named": false
   },
   {
+    "type": "switch",
+    "named": false
+  },
+  {
     "type": "to",
     "named": false
   },
@@ -704,6 +766,14 @@
   },
   {
     "type": "var",
+    "named": false
+  },
+  {
+    "type": "varip",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   },
   {

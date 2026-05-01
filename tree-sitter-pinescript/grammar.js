@@ -44,7 +44,7 @@ module.exports = grammar({
 
     // Indicator declaration
     indicator_declaration: $ => seq(
-      choice('indicator', 'strategy', 'study'),
+      choice('indicator', 'strategy', 'study', 'library'),
       $.string,
       optional($.parameter_list)
     ),
@@ -62,7 +62,7 @@ module.exports = grammar({
 
     // Variable declaration
     variable_declaration: $ => seq(
-      choice('var', 'const'),
+      choice('var', 'varip', 'const'),
       field('name', $.identifier),
       '=',
       $.expression
@@ -84,6 +84,8 @@ module.exports = grammar({
     statement: $ => choice(
       $.if_statement,
       $.for_statement,
+      $.while_statement,
+      $.switch_statement,
       $.assignment,
       $.function_call,
       $.return_statement
@@ -110,6 +112,18 @@ module.exports = grammar({
       $.block
     ),
 
+    while_statement: $ => seq(
+      'while',
+      $.expression,
+      $.block
+    ),
+
+    switch_statement: $ => seq(
+      'switch',
+      optional($.expression),
+      $.block
+    ),
+
     assignment: $ => seq(
       field('left', $.identifier),
       choice('=', ':='),
@@ -127,6 +141,7 @@ module.exports = grammar({
       $.number,
       $.string,
       $.boolean,
+      $.na,
       $.array,
       $.function_call,
       $.binary_expression,
@@ -180,6 +195,7 @@ module.exports = grammar({
     number: () => /\d+(\.\d+)?/,
     string: () => /"[^"]*"/,
     boolean: () => choice('true', 'false'),
+    na: () => 'na',
     comment: () => token(choice(
       seq('//', /.*/),
       seq(

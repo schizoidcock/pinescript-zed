@@ -69,6 +69,10 @@
             {
               "type": "STRING",
               "value": "study"
+            },
+            {
+              "type": "STRING",
+              "value": "library"
             }
           ]
         },
@@ -144,6 +148,10 @@
             {
               "type": "STRING",
               "value": "var"
+            },
+            {
+              "type": "STRING",
+              "value": "varip"
             },
             {
               "type": "STRING",
@@ -259,6 +267,14 @@
         {
           "type": "SYMBOL",
           "name": "for_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "while_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "switch_statement"
         },
         {
           "type": "SYMBOL",
@@ -383,6 +399,48 @@
         }
       ]
     },
+    "while_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        }
+      ]
+    },
+    "switch_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "switch"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        }
+      ]
+    },
     "assignment": {
       "type": "SEQ",
       "members": [
@@ -460,6 +518,10 @@
         {
           "type": "SYMBOL",
           "name": "boolean"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "na"
         },
         {
           "type": "SYMBOL",
@@ -780,6 +842,10 @@
           "value": "false"
         }
       ]
+    },
+    "na": {
+      "type": "STRING",
+      "value": "na"
     },
     "comment": {
       "type": "TOKEN",
