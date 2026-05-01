@@ -1,8 +1,16 @@
+id = "pinescript"
 name = "PineScript"
-description = "💾 PineScript support for TradingView indicators and strategies development in Zed"
-authors = ["David C Cavalcante <davcavalcante@proton.me>", "Takk™ Innovate Studio <say@takk.ag>"]
+description = "PineScript support for TradingView indicators and strategies development in Zed"
+authors = ["David C Cavalcante <davcavalcante@proton.me>", "Takk Innovate Studio <say@takk.ag>"]
 version = "0.1.0"
-repository = "https://github.com/takk8is/pinescript-extension-for-zed"
+schema_version = 1
+repository = "https://github.com/schizoidcock/pinescript-zed"
+
+[languages.pinescript]
+path = "languages/pinescript"
+grammar = "pinescript"
 
 [grammars.pinescript]
-path = "grammars/pinescript.wasm"
+repository = "https://github.com/schizoidcock/pinescript-zed"
+rev = "da93e80628519c0e47584836ceb44b0de835d224"
+path = "tree-sitter-pinescript"
