@@ -70,8 +70,6 @@
 ; Declaration keywords
 ["indicator" "strategy" "study" "library" "method"] @keyword.function
 
-; Import keyword
-["import" "as" "export"] @keyword.control.import
 
 ; Logical operators
 ["and" "or" "not"] @keyword.operator

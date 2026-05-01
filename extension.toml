@@ -8,5 +8,5 @@ repository = "https://github.com/schizoidcock/pinescript-zed"
 
 [grammars.pinescript]
 repository = "https://github.com/schizoidcock/pinescript-zed"
-rev = "a6a86e1d1b4b7a9232a3e5fbcf457478a7c6f0a1"
+rev = "342b26eb379847c0198d2f309c3fd72ad52fdddd"
 path = "tree-sitter-pinescript"
