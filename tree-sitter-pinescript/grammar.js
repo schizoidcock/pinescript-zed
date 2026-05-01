@@ -21,7 +21,9 @@ module.exports = grammar({
   word: $ => $.identifier,
 
   conflicts: $ => [
-    [$.return_statement, $.expression]
+    [$.return_statement, $.expression],
+    [$.member_expression, $.method_call],
+    [$.named_argument, $.assignment]
   ],
 
   rules: {
@@ -60,12 +62,29 @@ module.exports = grammar({
       $.block
     ),
 
-    // Variable declaration
-    variable_declaration: $ => seq(
-      choice('var', 'varip', 'const'),
-      field('name', $.identifier),
-      '=',
-      $.expression
+    // Variable declaration with required storage keyword or type
+    variable_declaration: $ => choice(
+      // With storage keyword (var/varip/const)
+      seq(
+        choice('var', 'varip', 'const'),
+        optional($.type_identifier),
+        field('name', $.identifier),
+        '=',
+        $.expression
+      ),
+      // With just type (no storage keyword)
+      seq(
+        $.type_identifier,
+        field('name', $.identifier),
+        '=',
+        $.expression
+      )
+    ),
+
+    // Type identifiers
+    type_identifier: $ => choice(
+      'int', 'float', 'bool', 'string', 'color', 'label', 'line', 'box',
+      'table', 'array', 'matrix', 'map', 'series', 'simple'
     ),
 
     // Parameter list
@@ -144,10 +163,29 @@ module.exports = grammar({
       $.na,
       $.array,
       $.function_call,
+      $.member_expression,
+      $.method_call,
       $.binary_expression,
       $.unary_expression,
       $.parenthesized_expression
     ),
+
+    // Member access: color.purple, ta.sma
+    member_expression: $ => prec(PREC.CALL, seq(
+      field('object', $.identifier),
+      '.',
+      field('property', $.identifier)
+    )),
+
+    // Method call: input.string(), color.new()
+    method_call: $ => prec(PREC.CALL + 1, seq(
+      field('object', $.identifier),
+      '.',
+      field('method', $.identifier),
+      '(',
+      optional($.argument_list),
+      ')'
+    )),
 
     binary_expression: $ => prec.left(seq(
       field('left', $.expression),
@@ -180,9 +218,23 @@ module.exports = grammar({
     function_call: $ => prec(PREC.CALL, seq(
       field('name', $.identifier),
       '(',
-      optional(sepBy(',', $.expression)),
+      optional($.argument_list),
       ')'
     )),
+
+    // Argument list with named arguments support
+    argument_list: $ => sepBy1(',', $.argument),
+
+    argument: $ => choice(
+      $.named_argument,
+      $.expression
+    ),
+
+    named_argument: $ => seq(
+      field('name', $.identifier),
+      '=',
+      field('value', $.expression)
+    ),
 
     array: $ => seq(
       '[',
@@ -209,4 +261,8 @@ module.exports = grammar({
 
 function sepBy(sep, rule) {
   return optional(seq(rule, repeat(seq(sep, rule))));
+}
+
+function sepBy1(sep, rule) {
+  return seq(rule, repeat(seq(sep, rule)));
 }

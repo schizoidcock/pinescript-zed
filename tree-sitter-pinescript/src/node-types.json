@@ -1,5 +1,39 @@
 [
   {
+    "type": "argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "named_argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "argument_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "array",
     "named": true,
     "fields": {},
@@ -193,6 +227,14 @@
           "named": true
         },
         {
+          "type": "member_expression",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
           "type": "na",
           "named": true
         },
@@ -261,11 +303,11 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "argument_list",
           "named": true
         }
       ]
@@ -341,6 +383,94 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "member_expression",
+    "named": true,
+    "fields": {
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "method_call",
+    "named": true,
+    "fields": {
+      "method": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "named_argument",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -510,6 +640,11 @@
     }
   },
   {
+    "type": "type_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {
@@ -555,11 +690,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -632,6 +771,10 @@
     "named": false
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -684,7 +827,23 @@
     "named": false
   },
   {
+    "type": "array",
+    "named": false
+  },
+  {
+    "type": "bool",
+    "named": false
+  },
+  {
+    "type": "box",
+    "named": false
+  },
+  {
     "type": "by",
+    "named": false
+  },
+  {
+    "type": "color",
     "named": false
   },
   {
@@ -705,6 +864,10 @@
     "named": false
   },
   {
+    "type": "float",
+    "named": false
+  },
+  {
     "type": "for",
     "named": false
   },
@@ -721,7 +884,27 @@
     "named": false
   },
   {
+    "type": "int",
+    "named": false
+  },
+  {
+    "type": "label",
+    "named": false
+  },
+  {
     "type": "library",
+    "named": false
+  },
+  {
+    "type": "line",
+    "named": false
+  },
+  {
+    "type": "map",
+    "named": false
+  },
+  {
+    "type": "matrix",
     "named": false
   },
   {
@@ -749,7 +932,19 @@
     "named": false
   },
   {
+    "type": "series",
+    "named": false
+  },
+  {
+    "type": "simple",
+    "named": false
+  },
+  {
     "type": "strategy",
+    "named": false
+  },
+  {
+    "type": "string",
     "named": false
   },
   {
@@ -762,6 +957,10 @@
   },
   {
     "type": "switch",
+    "named": false
+  },
+  {
+    "type": "table",
     "named": false
   },
   {

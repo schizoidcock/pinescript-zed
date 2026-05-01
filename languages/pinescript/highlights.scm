@@ -16,8 +16,12 @@
 ; Version declaration
 (version_declaration) @keyword.directive
 
+; Type identifiers (int, string, bool, color, etc.)
+(type_identifier) @type.builtin
+
 ; Indicator/Strategy/Library declaration
-(indicator_declaration) @keyword.function
+(indicator_declaration
+  (string) @string)
 
 ; Function definitions
 (function_definition
@@ -27,7 +31,21 @@
 (function_call
   name: (identifier) @function.call)
 
-; Parameters
+; Method calls: input.string(), color.new()
+(method_call
+  object: (identifier) @module
+  method: (identifier) @function.method)
+
+; Member access: color.purple, ta.sma
+(member_expression
+  object: (identifier) @module
+  property: (identifier) @property)
+
+; Named arguments: overlay=true, group=GROUP_CONFIG
+(named_argument
+  name: (identifier) @variable.parameter)
+
+; Parameters in function definitions
 (parameter
   name: (identifier) @variable.parameter)
 
@@ -43,38 +61,22 @@
 (for_statement
   name: (identifier) @variable)
 
-; Declaration keywords
-[
-  "var"
-  "varip" 
-  "const"
-] @keyword.storage
+; Storage keywords
+["var" "varip" "const"] @keyword.storage
 
 ; Control flow keywords
-[
-  "if"
-  "else"
-  "for"
-  "to"
-  "by"
-  "while"
-  "switch"
-  "return"
-] @keyword.control
+["if" "else" "for" "to" "by" "while" "switch" "return"] @keyword.control
 
 ; Declaration keywords
-[
-  "indicator"
-  "strategy"
-  "study"
-  "library"
-  "method"
-] @keyword.function
+["indicator" "strategy" "study" "library" "method"] @keyword.function
 
-; Logical operators (these are keywords)
+; Import keyword
+["import" "as" "export"] @keyword.control.import
+
+; Logical operators
 ["and" "or" "not"] @keyword.operator
 
-; Binary expression operators - capture via field
+; Binary expression operators
 (binary_expression
   operator: _ @operator)
 
@@ -83,9 +85,9 @@
   operator: _ @operator)
 
 ; Assignment operators
-(assignment) @operator
+["=" ":="] @operator
 
-; Arrow in function definitions
+; Arrow operator
 "=>" @operator
 
 ; Punctuation brackets
@@ -94,5 +96,8 @@
 ; Punctuation delimiter
 [","] @punctuation.delimiter
 
-; Fallback - identifiers
+; Dot accessor
+"." @punctuation.delimiter
+
+; Identifiers (fallback)
 (identifier) @variable
